@@ -8,21 +8,29 @@
 
 _RUTILS
 
-class FileNotFound : public std::exception {
+class FileNotFound : std::exception {
 
-    virtual const char* what() const throw() {
-        return "No such file";
+    std::string path_ = "";
+
+public:
+
+    FileNotFound& operator()(std::string path) {
+        path_ = path;
+        return *this;
     }
 
-} NullReferenceException;
-
-class UndefinedReference : public std::exception {
-
     virtual const char* what() const throw() {
-        return "Object must have a value.";
+        std::string message;
+
+        if (path_.empty())
+            message = "No such file";
+        else
+            message = std::string("No such file '") + path_ + "'";
+
+        return message.c_str();
     }
 
-} UndefinedReferenceException;
+} FileNotFoundException;
 
 _RUTILS_END
 

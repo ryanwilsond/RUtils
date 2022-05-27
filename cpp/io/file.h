@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "../base.h"
+#include "exceptions.h"
 
 #ifndef __has_include
     static_assert(false, "__has_include not supported");
@@ -32,7 +33,6 @@ _RUTILS
 class File {
 private:
 
-    // static class avoiding the use of :: operator
     File() { }
 
 public:
@@ -74,7 +74,7 @@ public:
         return buffer;
     }
 
-} File;
+};
 
 /// Attempts to open file and read its contents by concatenating to string with newlines as padding
 /// If failed to find file returns uninitialized string (use rutils::file_exists for certainty)
